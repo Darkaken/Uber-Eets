@@ -1,0 +1,2 @@
+class ComentarioRestaurantesController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class ComentarioPlatosController < ApplicationController
+end
