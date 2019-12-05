@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: Admin</title>
+  </head>
+  <body>
+    <form action="admin" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <ol>
+        <% @restaurantes.each do |rest| %>
+        <% id = rest.id %>
+        <li> <%= "Nombre: #{rest.nombre} " %>
+          <a href= <%="/info_rest/#{id}"%>> Perfil </a>
+          <p>Estado corriente: <%= get_estado(rest.estado) %></p>
+          <p>
+            <label> Estado Solicitud: </label>
+            <input type="radio" name="data[<%= rest.id  %>]" value=0> Aceptado
+            <input type="radio" name="data[<%= rest.id  %>]" value=1> Pendiente
+            <input type="radio" name="data[<%= rest.id  %>]" value=2> Rechazado
+            <input type="radio" name="data[<%= rest.id  %>]" value=3> Borrar
+          </p>
+        </li>
+        <% end %>
+      </ol>
+      <input type="submit" value="Guardar Cambios">
+    </form>
+    <a href="/">Ir a inicio</a>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: Crear Plato</title>
+  </head>
+  <body>
+    <h2>Crear plato nuevo</h2>
+    <form action=<%="/crear_plato/#{@restaurante.id}"%> method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <p>
+        <label>Nombre:</label>
+        <input type="text" name="datos[nombre]">
+      </p>
+      <p>
+        <label>Precio:</label>
+        <input type="number" name="datos[precio]">
+        <label> CLP </label>
+      </p>
+      <p>
+        <label>Descripcion:</label>
+        <input type="text" name="datos[descripcion]">
+      </p>
+      <p>
+        <label>Cantidad de Porciones:</label>
+        <input type="number" name="datos[porciones]">
+      </p>
+      <p>
+        <label>Imagen:</label>
+        <input type="text" name="datos[image]">
+      </p>
+      <input type='submit' value="Crear Plato">
+    </form>
+    <a href=<%="/restaurantdashboard/#{@restaurante.id}"%>>To Dashboard</a>
+  </body>
+</html>

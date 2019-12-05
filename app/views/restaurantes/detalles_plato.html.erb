@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: Detalle Plato</title>
+  </head>
+  <body>
+    <h2>Detalle Plato: <%= @plato.nombre %></h2>
+    <ul>
+      <li>Precio: <%= @plato.precio %> CLP</li>
+      <li>Descripcion: <%= @plato.descripcion %></li>
+      <li>Porciones: <%= @plato.porciones %></li>
+      <!-- Falta Imagen -->
+    </ul>
+      <a href=<%="/restaurantdashboard/#{@id_rest}"%>> Volver a Dashboard</a>
+  </body>
+</html>
