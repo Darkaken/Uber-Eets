@@ -4,6 +4,7 @@
     <title>Uber Eets: Crear Plato</title>
   </head>
   <body>
+    <h4><%= @msg %></h4>
     <h2>Crear plato nuevo</h2>
     <form action=<%="/crear_plato/#{@restaurante.id}"%> method="post">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

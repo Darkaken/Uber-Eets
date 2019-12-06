@@ -1,1 +1,25 @@
-hola <%= "#{@usuario.nombre}!" %>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets</title>
+  </head>
+  <body>
+    <h2><%= "Hola #{@usuario.nombre}!"%></h2>
+
+    <a href=<%="/userdashboard/#{@usuario.id}/ordenes"%>>Mis Ordenes</a> <br>
+    <a href=<%="/userdashboard/#{@usuario.id}/perfil"%>>Perfil</a> <br> <br>
+
+    <label>Restaurantes: </label>
+    <ul>
+      <% @restaurantes.each do |rest| %>
+        <li>
+          <label><%= rest.nombre %></label>
+          <form action=<%="/userdashboard/#{@usuario.id}/#{rest.id}"%> method="get">
+            <input type="submit" value="Hacer Pedido" />
+          </form>
+        </li>
+      <% end %>
+    </ul>
+    <a href="/">Salir</a>
+  </body>
+</html>

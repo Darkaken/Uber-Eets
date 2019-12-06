@@ -4,8 +4,8 @@
     <title>Uber Eets: Dashboard</title>
   </head>
   <body>
-    Dashboard de <%= @restaurante.nombre %>
-
+    Dashboard de <%= @restaurante.nombre %> <br>
+    <a href=<%="/restaurantprofile/#{@restaurante.id}"%>> Ir a perfil </a>
     <p> Ordenes:
       <ul>
         <% @ordenes.each do |orden|%>
@@ -35,11 +35,15 @@
         <% @platos.each do |plato|%>
           <% @id = plato.id %>
           <li> <a href=<%="/info_plato/#{@restaurante.id}/#{@id}"%>> <%= plato.nombre %> </a> </li>
+          <form action=<%="/eliminar_plato/#{@restaurante.id}/#{plato.id}"%> method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="submit" value="Eliminar Plato">
+          </form>
         <% end %>
       </ul>
     </p>
 
-    <a href=<%="/crear_plato/#{@restaurante.id}"%>> Crear Plato </a>
-
+    <a href=<%="/crear_plato/#{@restaurante.id}"%>> Crear Plato </a> <br>
+    <a href="/"> Salir </a>
   </body>
 </html>

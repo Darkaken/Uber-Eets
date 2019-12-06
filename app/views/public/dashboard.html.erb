@@ -10,7 +10,9 @@
 
     <ul>
       <% @restaurantes.each do |restaurante| %>
-      <li><%= restaurante.nombre %></li>
+        <% if restaurante.estado == 0 %>
+          <li> <a href=<%= "/dashboard/#{restaurante.id}" %>> <%= restaurante.nombre %> </a> </li>
+        <% end %>
       <% end %>
     </ul>
     <a href="/">Ir a inicio</a>

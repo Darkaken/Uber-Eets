@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   #Homepage and guest dashboard
   root to: "public#homepage"
   get "/dashboard" => "public#dashboard"
+  get "/dashboard/:id" => "public#view_restaurant"
 
   #Get login and enter login data
-  get "/login" => "public#login_page"
+  get "/login/:msg" => "public#login_page"
   post "/login" => "public#login_user"
 
   # Admin stuff
@@ -21,11 +22,25 @@ Rails.application.routes.draw do
 
   # User Routes
   get "/userdashboard/:data" => "usuarios#dashboard"
+  get "/userdashboard/:data/perfil" => "usuarios#perfil"
+  post "/userdashboard/:data/perfil" => "usuarios#perfil"
+  get "/userdashboard/:data/ordenes" => "usuarios#ordenes"
+
+  get "/userdashboard/:data/:id" => "usuarios#pedido" #Se crea el Pedido
+  post "/userdashboard/:data/:id" => "usuarios#confirmacion_pedido" #Se confirma el Pedido
+  post "/userdashboard/:data/:id/confirm" => "usuarios#pedido"  #Se hacen los cambios de db
 
   # Restaurant Routes
-  get "/restaurantdashboard/:data" => "restaurantes#dashboard"
+  get "/restaurantdashboard/:id" => "restaurantes#dashboard"
+
+  # Platos
   get "/crear_plato/:id" => "restaurantes#crear_plato"
   post "/crear_plato/:id" => "restaurantes#crear_plato"
-  get "/info_plato/:id_rest/:id_plato" => "restaurantes#detalles_plato"
+  get "/info_plato/:id_rest/:id" => "restaurantes#detalles_plato"
+  post "/eliminar_plato/:id_rest/:id_plato" => "restaurantes#eliminar_plato"
+
+  # Perfil
+  get "/restaurantprofile/:id" => "restaurantes#perfil"
+  post "/restaurantprofile/:id" => "restaurantes#perfil"
 
 end

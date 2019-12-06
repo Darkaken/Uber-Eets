@@ -1,3 +1,18 @@
-info restaurante <%= @restaurante.nombre %> <br>
 
-<a href="/admin"> Ir a menu de inicio </a>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: Informacion Restaurante</title>
+  </head>
+  <body>
+    <h3>Informacion restaurante "<%= @restaurante.nombre %>"</h3>
+
+    <p>Nombre: <%= @restaurante.nombre %></p>
+    <p>Correo: <%= @restaurante.correo %></p>
+    <p>Direccion: <%= @restaurante.direccion %></p>
+    <p>Telefono: <%= @restaurante.telefono %></p>
+    <p>Valoracion: <%= @restaurante.valoracion %></p>
+
+    <a href="/admin"> Ir a dashboard de admin </a>
+  </body>
+</html>

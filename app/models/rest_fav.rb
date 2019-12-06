@@ -1,0 +1,2 @@
+class RestFav < ApplicationRecord
+end

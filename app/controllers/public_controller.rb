@@ -6,6 +6,11 @@ class PublicController < ApplicationController
   end
 
   def login_page
+    if params[:msg] == "false"
+      @msg = "Datos invalidos, intente de nuevo!"
+    else
+      @msg = ""
+    end
   end
 
   def admin
@@ -16,10 +21,7 @@ class PublicController < ApplicationController
       else
         admin_params.each do |id, valor|
           if valor == "3"
-            puts id
-            puts id.class
             Restaurante.delete(id)
-            puts id
           else
             rest = Restaurante.find(Integer(id))
             rest.update(estado: valor)
@@ -45,11 +47,12 @@ class PublicController < ApplicationController
   end
 
   def login_user
+      @msg = ''
       if params[:tipo]== "0"
         usuario = Usuario.where(nombre: params[:datos][:nombre], password: params[:datos][:password])
         # El elemento 0 es el objeto usuario en cuestion
         if usuario[0].nil?
-          redirect_to "/login"
+          redirect_to "/login/false"
         else
           if usuario[0].tipo == 1
             redirect_to "/admin"
@@ -60,9 +63,9 @@ class PublicController < ApplicationController
       else
         restaurante = Restaurante.where(nombre: params[:datos][:nombre], password: params[:datos][:password])
         if restaurante[0].nil?
-          redirect_to "/login"
+          redirect_to "/login/false"
         else
-          redirect_to :controller => "restaurantes", :action => "dashboard", :data => restaurante[0].id
+          redirect_to :controller => "restaurantes", :action => "dashboard", :id => restaurante[0].id
         end
       end
   end
@@ -93,6 +96,11 @@ class PublicController < ApplicationController
 
   def dashboard
     @restaurantes = Restaurante.all
+  end
+
+  def view_restaurant
+    @restaurante = Restaurante.find(params[:id])
+    @platos = Plato.where(restaurante_id: @restaurante.id)
   end
 
   private

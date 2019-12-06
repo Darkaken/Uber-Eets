@@ -5,6 +5,8 @@
   </head>
   <body>
     <h2>Welcome back!</h2>
+
+    <h4> <%= @msg %></h4>
     <form action="/login" method="post">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
       <p>

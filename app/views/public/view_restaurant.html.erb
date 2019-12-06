@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: View Restaurant</title>
+  </head>
+  <body>
+    <h2><%= "Pagina de #{@restaurante.nombre}" %></h2>
+
+    <h4> Platos disponibles: </h4>
+
+    <% if @platos.nil? == false %>
+      <% @platos.each do |plato| %>
+        <ul>
+          <li>Nombre: <%= plato.nombre %> </li>
+          <p> Porciones: <%= plato.porciones %> </p>
+          <p> Descripcion: <%= plato.descripcion %> </p>
+          <p> Precio: <%= plato.precio %> CLP</p>
+        </ul>
+      <% end %>
+    <% end %>
+    <a href="/dashboard">Volver al dashboard</a>
+  </body>
+</html>
