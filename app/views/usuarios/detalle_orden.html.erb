@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: Detalle Orden</title>
+  </head>
+  <body>
+    <h3>Detalle Orden</h3>
+
+    <div class="detalle">
+      <p>Restaurante: <%=@restaurante.nombre%></p>
+
+      <p>Pedido: </p>
+      <ul>
+        <% @platos.each do |plato, cant| %>
+          <% if cant != 0 %>
+            <li><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%></li>
+          <% end %>
+        <% end %>
+        <li>Total: <%=@orden.precio%> CLP</li>
+      </ul>
+
+      <p>Detalles de envio:</p>
+      <ul>
+        <li>Medio de pago: <%=UsuariosController.get_medio_de_pago(@orden.medio_pago.to_i)%></li>
+        <li>Direccion de entrega: <%=@orden.direccion_entrega%></li>
+
+        <% if @orden.notas != "" %>
+          <li>Notas: <%=@orden.notas%></li>
+        <% else %>
+          <li>Notas: N/A</li>
+        <% end %>
+      </ul>
+    </div>
+
+    <a href=<%="/userdashboard/#{@usuario.id}/ordenes"%>>Volver</a>
+
+  </body>
+</html>

@@ -39,6 +39,7 @@ class RestaurantesController < ApplicationController
 
       ContienePlato.all.each do |contiene_plato|
         if contiene_plato.plato_id == plato.id
+
           @ordens += Orden.where(id: contiene_plato.orden_id)
         end
       end

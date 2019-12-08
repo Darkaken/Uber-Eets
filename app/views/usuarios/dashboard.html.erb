@@ -6,6 +6,8 @@
   <body>
     <h2><%= "Hola #{@usuario.nombre}!"%></h2>
 
+    <h3><%=@msg%></h3>
+
     <a href=<%="/userdashboard/#{@usuario.id}/ordenes"%>>Mis Ordenes</a> <br>
     <a href=<%="/userdashboard/#{@usuario.id}/perfil"%>>Perfil</a> <br> <br>
 
@@ -16,6 +18,9 @@
           <label><%= rest.nombre %></label>
           <form action=<%="/userdashboard/#{@usuario.id}/#{rest.id}"%> method="get">
             <input type="submit" value="Hacer Pedido" />
+          </form>
+          <form action=<%="/userdashboard/#{@usuario.id}/#{rest.id}/view"%> method="get">
+            <input type="submit" value="Ver pagina" />
           </form>
         </li>
       <% end %>

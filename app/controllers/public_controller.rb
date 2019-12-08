@@ -13,6 +13,11 @@ class PublicController < ApplicationController
     end
   end
 
+  def stats #INCOMPLETO
+      Restaurant.where(estado: 0).each do |rest|
+      end
+  end
+
   def admin
     @restaurantes = Restaurante.all.sort_by {|obj| obj.nombre}
     if params == {"controller"=>"public", "action"=>"admin"}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_180303) do
+ActiveRecord::Schema.define(version: 2019_12_07_233357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_180303) do
     t.index ["usuario_id", "plato_id"], name: "index_comentario_platos_on_usuario_id_and_plato_id"
   end
 
-  create_table "comentario_restaurantes", id: false, force: :cascade do |t|
+  create_table "comentario_restaurantes", force: :cascade do |t|
     t.bigint "usuario_id", null: false
     t.bigint "restaurante_id", null: false
     t.datetime "fecha"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_180303) do
     t.bigint "usuario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "precio"
     t.index ["usuario_id"], name: "index_ordens_on_usuario_id"
   end
 

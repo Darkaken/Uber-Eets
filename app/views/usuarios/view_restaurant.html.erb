@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eets: Ver Restaurante</title>
+  </head>
+  <body>
+
+    <h3>Pagina de <%=@restaurante.nombre%></h3>
+    <h5>Puntaje: <%=@puntaje%>/5</h5>
+
+    <h4>Comentarios: </h4>
+    <% if @comentarios_rest.nil? == false %>
+      <ul>
+        <% @comentarios_rest.each do |comment|%>
+          <li>
+            <p>Valoracion: <%=comment.puntaje%>/5</p>
+            <p>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></p>
+            <p>Comentario: <%=comment.contenido%></p>
+            <p>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></p>
+          </li>
+
+          <% if comment.usuario_id == @usuario.id %>
+            <form class="eliminar_mensaje" action=<%="/userdashboard/#{@usuario.id}/#{@restaurante.id}/view"%> method="post">
+              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+              <input type="hidden" name="del_id" value="<%=comment.id%>">
+              <input type="submit" value="Eliminar Mensaje">
+            </form>
+          <% end %>
+
+        <% end %>
+      </ul>
+    <% else %>
+      <p>N/A</p>
+    <% end %>
+
+    <h4>Hacer comentario: </h4>
+    <form class="comentario_form" action=<%="/userdashboard/#{@usuario.id}/#{@restaurante.id}/view"%> method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="comentario[usuario_id]" value="<%=@usuario.id%>">
+      <input type="hidden" name="comentario[restaurante_id]" value="<%=@restaurante.id%>">
+      <input type="hidden" name="comentario[fecha]" value="<%=Time.now.to_s[0, 19]%>">
+      <p>
+        Valoracion: <input type="number" name="comentario[puntaje]" value="5">/5
+      </p>
+      <p>Comentario: <input type="text" name="comentario[contenido]" value=""></p>
+      <input type="submit" value="Hacer Comentario">
+    </form>
+
+    <h4>Platos: </h4>
+
+    <div class="platos">
+      <ul>
+        <% @platos.each do |plato| %>
+          <li>
+            <p><%=plato.nombre%></p>
+            <p>Precio: <%=plato.precio%> CLP</p>
+            <p>Porciones: <%=plato.porciones%></p>
+            <p>Descripcion: <%=plato.descripcion%></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <a href=<%="/userdashboard/#{@usuario.id}"%>>Volver a dashboard</a>
+  </body>
+</html>

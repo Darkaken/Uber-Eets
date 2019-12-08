@@ -11,10 +11,12 @@
     <ul>
       <% @platos.each do |plato| %>
         <% if @datos[plato.id].class != nil %>
-          <li> <%="Plato: #{plato.nombre},   Cantidad: #{@datos[plato.id.to_s]}" %></li>
+          <li> <%="Plato: #{plato.nombre},   Cantidad: #{@datos[plato.id.to_s]}, Precio: #{plato.precio * @datos[plato.id.to_s].to_i}" %></li>
         <% end %>
       <% end %>
     </ul>
+
+    <p>Total: <%=@total%></p>
 
     <h3>Informacion de compra: </h3>
 
@@ -30,13 +32,14 @@
 
         <label>Medio de pago: </label>
         <select name="carrito[medio_pago]">
-          <option value="2">Credito</option>
-          <option value="3">Debito</option>
+          <option value="2">Crédito</option>
+          <option value="3">Débito</option>
           <option value="1">Efectivo</option>
           <option value="4">EetsPay</option>
         </select>
 
         <li>Notas: <input type="text" name="carrito[notas]" value=""></li>
+        <input type="hidden" name="carrito[precio]" value=<%=@total%>>
         <input type="submit" value="Hacer Pedido">
 
       </form>

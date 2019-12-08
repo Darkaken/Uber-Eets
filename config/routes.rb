@@ -14,23 +14,36 @@ Rails.application.routes.draw do
   get "/admin" => "public#admin"
   get "/info_rest/:id" => "public#info_rest"
   post "/admin" => "public#admin"
+  get "/admin/stats" => "public#stats"
 
   #Get signup and enter register data
   get "/signup" => "public#signup"
   post "/signup" => "public#signup"
   get "/exitosignup" => "public#exitosignup"
 
-  # User Routes
+  # USER ROUTES
   get "/userdashboard/:data" => "usuarios#dashboard"
+
+  # Perfil
   get "/userdashboard/:data/perfil" => "usuarios#perfil"
   post "/userdashboard/:data/perfil" => "usuarios#perfil"
-  get "/userdashboard/:data/ordenes" => "usuarios#ordenes"
 
+  # Ordenes
+  get "/userdashboard/:data/ordenes" => "usuarios#ordenes"
+  get "/userdashboard/:data/ordenes/:orden_id" => "usuarios#detalle_orden"
+
+  # Pedidos
   get "/userdashboard/:data/:id" => "usuarios#pedido" #Se crea el Pedido
   post "/userdashboard/:data/:id" => "usuarios#confirmacion_pedido" #Se confirma el Pedido
   post "/userdashboard/:data/:id/confirm" => "usuarios#pedido"  #Se hacen los cambios de db
 
-  # Restaurant Routes
+  # Ver Restaurantes
+
+  get "/userdashboard/:data/:id/view" => "usuarios#view_restaurant"
+  post "/userdashboard/:data/:id/view" => "usuarios#view_restaurant"
+  #post "/userdashboard/:data/:id/view/:delid" => "usuarios#view_restaurant"
+
+  # RESTAURANT ROUTES
   get "/restaurantdashboard/:id" => "restaurantes#dashboard"
 
   # Platos
