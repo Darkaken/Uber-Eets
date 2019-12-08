@@ -28147,3 +28147,503 @@ Processing by UsuariosController#dashboard as HTML
 Completed 200 OK in 112ms (Views: 94.7ms | ActiveRecord: 3.4ms)
 
 
+Started GET "/userdashboard/45" for 172.28.0.1 at 2019-12-08 17:45:54 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.4/lib/active_record/log_subscriber.rb:98
+Processing by UsuariosController#dashboard as HTML
+  Parameters: {"data"=>"45"}
+  [1m[36mUsuario Load (2.8ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1[0m  [["id", 45]]
+  ↳ app/controllers/usuarios_controller.rb:4
+  Rendering usuarios/dashboard.html.erb within layouts/application
+  [1m[36mRestaurante Load (2.2ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."estado" = $1[0m  [["estado", 0]]
+  ↳ app/views/usuarios/dashboard.html.erb:16
+  Rendered usuarios/dashboard.html.erb within layouts/application (17.9ms)
+Completed 200 OK in 745ms (Views: 636.2ms | ActiveRecord: 38.4ms)
+
+
+Started GET "/" for 172.28.0.1 at 2019-12-08 17:45:57 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#homepage as HTML
+  Rendering public/homepage.html.erb within layouts/application
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:8
+  [1m[36mUsuario Load (2.1ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:11
+  Rendered public/homepage.html.erb within layouts/application (8.3ms)
+Completed 200 OK in 110ms (Views: 95.4ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/login/a" for 172.28.0.1 at 2019-12-08 17:46:25 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_page as HTML
+  Parameters: {"msg"=>"a"}
+  Rendering public/login_page.html.erb within layouts/application
+  Rendered public/login_page.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 124ms (Views: 112.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 172.28.0.1 at 2019-12-08 17:46:31 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#homepage as HTML
+  Rendering public/homepage.html.erb within layouts/application
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:8
+  [1m[36mUsuario Load (0.8ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:11
+  Rendered public/homepage.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 99ms (Views: 86.6ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/login/a" for 172.28.0.1 at 2019-12-08 17:46:33 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_page as HTML
+  Parameters: {"msg"=>"a"}
+  Rendering public/login_page.html.erb within layouts/application
+  Rendered public/login_page.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 86ms (Views: 76.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 172.28.0.1 at 2019-12-08 17:46:38 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_user as HTML
+  Parameters: {"authenticity_token"=>"yVNNOQlNn/3p4hsk+2XONrO0qdniMe1XTa7A479T0yOrT6KhOVG83ZHVk1iB68U5qXs5D3yvUh4BH/ZbdKFinw==", "datos"=>{"nombre"=>"McDonalds", "password"=>"[FILTERED]"}, "tipo"=>"1"}
+  [1m[36mRestaurante Load (0.8ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."nombre" = $1 AND "restaurantes"."password" = $2[0m  [["nombre", "McDonalds"], ["password", "12345"]]
+  ↳ app/controllers/public_controller.rb:70
+Redirected to http://0.0.0.0:3000/restaurantdashboard/53
+Completed 302 Found in 4ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/restaurantdashboard/53" for 172.28.0.1 at 2019-12-08 17:46:38 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#dashboard as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (0.7ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1[0m  [["id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:4
+  [1m[36mPlato Load (4.4ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:38
+  [1m[36mContienePlato Load (2.6ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+Completed 500 Internal Server Error in 64ms (ActiveRecord: 26.2ms)
+
+
+  
+NoMethodError (undefined method `+' for nil:NilClass):
+  
+app/controllers/restaurantes_controller.rb:43:in `block (2 levels) in cargar_datos'
+app/controllers/restaurantes_controller.rb:40:in `block in cargar_datos'
+app/controllers/restaurantes_controller.rb:38:in `cargar_datos'
+app/controllers/restaurantes_controller.rb:10:in `dashboard'
+Started GET "/restaurantdashboard/53" for 172.28.0.1 at 2019-12-08 17:47:10 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#dashboard as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (0.6ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1[0m  [["id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:4
+  [1m[36mPlato Load (1.6ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:38
+  [1m[36mContienePlato Load (1.2ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mOrden Load (2.6ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mOrden Load (2.2ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mComentarioPlato Load (3.0ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  [1m[36mCACHE ContienePlato Load (0.0ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE ComentarioPlato Load (0.0ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  Rendering restaurantes/dashboard.html.erb within layouts/application
+  [1m[36mComentarioRestaurante Load (3.8ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/restaurantes/dashboard.html.erb:27
+  Rendered restaurantes/dashboard.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 214ms (Views: 89.5ms | ActiveRecord: 51.3ms)
+
+
+Started GET "/info_plato/53/6" for 172.28.0.1 at 2019-12-08 17:47:48 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#detalles_plato as HTML
+  Parameters: {"id_rest"=>"53", "id"=>"6"}
+  [1m[36mPlato Load (1.1ms)[0m  [1m[34mSELECT  "platos".* FROM "platos" WHERE "platos"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/restaurantes_controller.rb:78
+  Rendering restaurantes/detalles_plato.html.erb within layouts/application
+  Rendered restaurantes/detalles_plato.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 103ms (Views: 89.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/restaurantdashboard/53" for 172.28.0.1 at 2019-12-08 17:47:50 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#dashboard as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (1.3ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1[0m  [["id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:4
+  [1m[36mPlato Load (1.1ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:38
+  [1m[36mContienePlato Load (1.1ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mOrden Load (1.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mOrden Load (0.8ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mComentarioPlato Load (0.8ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  [1m[36mCACHE ContienePlato Load (0.0ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE ComentarioPlato Load (0.0ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  Rendering restaurantes/dashboard.html.erb within layouts/application
+  [1m[36mComentarioRestaurante Load (1.0ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/restaurantes/dashboard.html.erb:27
+  Rendered restaurantes/dashboard.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 105ms (Views: 76.8ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/restaurantprofile/53" for 172.28.0.1 at 2019-12-08 17:47:55 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#perfil as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (1.1ms)[0m  [1m[34mSELECT  "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/restaurantes_controller.rb:17
+  Rendering restaurantes/perfil.html.erb within layouts/application
+  Rendered restaurantes/perfil.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 88ms (Views: 76.8ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/restaurantprofile/53" for 172.28.0.1 at 2019-12-08 17:48:43 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#perfil as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (1.2ms)[0m  [1m[34mSELECT  "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/restaurantes_controller.rb:17
+  Rendering restaurantes/perfil.html.erb within layouts/application
+  Rendered restaurantes/perfil.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 110ms (Views: 100.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/restaurantdashboard/53" for 172.28.0.1 at 2019-12-08 17:49:47 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#dashboard as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (1.2ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1[0m  [["id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:4
+  [1m[36mPlato Load (1.1ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:38
+  [1m[36mContienePlato Load (1.6ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mOrden Load (1.3ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mOrden Load (1.6ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mComentarioPlato Load (1.2ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  [1m[36mCACHE ContienePlato Load (0.0ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE ComentarioPlato Load (0.0ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  Rendering restaurantes/dashboard.html.erb within layouts/application
+  [1m[36mComentarioRestaurante Load (1.6ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/restaurantes/dashboard.html.erb:19
+  Rendered restaurantes/dashboard.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 153ms (Views: 113.7ms | ActiveRecord: 9.5ms)
+
+
+Started GET "/" for 172.28.0.1 at 2019-12-08 17:49:50 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#homepage as HTML
+  Rendering public/homepage.html.erb within layouts/application
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:8
+  [1m[36mUsuario Load (1.1ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:11
+  Rendered public/homepage.html.erb within layouts/application (18.0ms)
+Completed 200 OK in 103ms (Views: 79.9ms | ActiveRecord: 10.0ms)
+
+
+Started GET "/login/a" for 172.28.0.1 at 2019-12-08 17:49:51 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_page as HTML
+  Parameters: {"msg"=>"a"}
+  Rendering public/login_page.html.erb within layouts/application
+  Rendered public/login_page.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 81ms (Views: 73.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 172.28.0.1 at 2019-12-08 17:50:01 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#homepage as HTML
+  Rendering public/homepage.html.erb within layouts/application
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:8
+  [1m[36mUsuario Load (0.9ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:11
+  Rendered public/homepage.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 99ms (Views: 86.9ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/login/a" for 172.28.0.1 at 2019-12-08 17:50:02 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_page as HTML
+  Parameters: {"msg"=>"a"}
+  Rendering public/login_page.html.erb within layouts/application
+  Rendered public/login_page.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 64ms (Views: 58.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 172.28.0.1 at 2019-12-08 17:50:09 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_user as HTML
+  Parameters: {"authenticity_token"=>"eM5calZhcOFGwOJPz9WeHwYSZQd6rU4EtNw2fDhNDCAa0rPyZn1TwT73ajO1W5UQHN310eQz8U34bQDE87+9nA==", "datos"=>{"nombre"=>"Darkaken", "password"=>"[FILTERED]"}, "tipo"=>"0"}
+  [1m[36mUsuario Load (1.9ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios" WHERE "usuarios"."nombre" = $1 AND "usuarios"."password" = $2[0m  [["nombre", "Darkaken"], ["password", "12345"]]
+  ↳ app/controllers/public_controller.rb:59
+Redirected to http://0.0.0.0:3000/userdashboard/45
+Completed 302 Found in 7ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/userdashboard/45" for 172.28.0.1 at 2019-12-08 17:50:09 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsuariosController#dashboard as HTML
+  Parameters: {"data"=>"45"}
+  [1m[36mUsuario Load (1.1ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1[0m  [["id", 45]]
+  ↳ app/controllers/usuarios_controller.rb:4
+  Rendering usuarios/dashboard.html.erb within layouts/application
+  [1m[36mRestaurante Load (1.0ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."estado" = $1[0m  [["estado", 0]]
+  ↳ app/views/usuarios/dashboard.html.erb:16
+  Rendered usuarios/dashboard.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 104ms (Views: 89.5ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/userdashboard/45/53/view" for 172.28.0.1 at 2019-12-08 17:50:11 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsuariosController#view_restaurant as HTML
+  Parameters: {"data"=>"45", "id"=>"53"}
+  [1m[36mRestaurante Load (0.8ms)[0m  [1m[34mSELECT  "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:50
+  [1m[36mUsuario Load (0.6ms)[0m  [1m[34mSELECT  "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:51
+  [1m[36mComentarioRestaurante Load (1.0ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/usuarios_controller.rb:69
+  Rendering usuarios/view_restaurant.html.erb within layouts/application
+  [1m[36mPlato Load (1.0ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/usuarios/view_restaurant.html.erb:53
+  Rendered usuarios/view_restaurant.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 76ms (Views: 62.5ms | ActiveRecord: 3.4ms)
+
+
+Started POST "/userdashboard/45/53/view" for 172.28.0.1 at 2019-12-08 17:50:17 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsuariosController#view_restaurant as HTML
+  Parameters: {"authenticity_token"=>"Ba9y5TAkukRePs6T7T8gYBIHkh50ZofBltjgjjvpdJ1ns519ADiZZCYJRu+XsStvCMgCyOr4OIjaadY28BvFIQ==", "comentario"=>{"usuario_id"=>"45", "restaurante_id"=>"53", "fecha"=>"2019-12-08 17:50:11", "puntaje"=>"5", "contenido"=>"YAAAS"}, "data"=>"45", "id"=>"53"}
+  [1m[36mRestaurante Load (1.2ms)[0m  [1m[34mSELECT  "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:50
+  [1m[36mUsuario Load (1.0ms)[0m  [1m[34mSELECT  "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:51
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/usuarios_controller.rb:61
+  [1m[36mUsuario Load (0.6ms)[0m  [1m[34mSELECT  "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:61
+  [1m[36mRestaurante Load (1.3ms)[0m  [1m[34mSELECT  "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:61
+  [1m[36mComentarioRestaurante Create (2.8ms)[0m  [1m[32mINSERT INTO "comentario_restaurantes" ("usuario_id", "restaurante_id", "fecha", "puntaje", "contenido") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["usuario_id", 45], ["restaurante_id", 53], ["fecha", "2019-12-08 17:50:11"], ["puntaje", 5.0], ["contenido", "YAAAS"]]
+  ↳ app/controllers/usuarios_controller.rb:61
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/usuarios_controller.rb:61
+  [1m[36mComentarioRestaurante Load (0.9ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/usuarios_controller.rb:69
+  Rendering usuarios/view_restaurant.html.erb within layouts/application
+  [1m[36mUsuario Load (1.3ms)[0m  [1m[34mSELECT  "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:81
+  [1m[36mPlato Load (1.8ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/usuarios/view_restaurant.html.erb:53
+  Rendered usuarios/view_restaurant.html.erb within layouts/application (8.7ms)
+Completed 200 OK in 153ms (Views: 84.2ms | ActiveRecord: 15.6ms)
+
+
+Started GET "/userdashboard/45" for 172.28.0.1 at 2019-12-08 17:50:19 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsuariosController#dashboard as HTML
+  Parameters: {"data"=>"45"}
+  [1m[36mUsuario Load (1.2ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1[0m  [["id", 45]]
+  ↳ app/controllers/usuarios_controller.rb:4
+  Rendering usuarios/dashboard.html.erb within layouts/application
+  [1m[36mRestaurante Load (0.8ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."estado" = $1[0m  [["estado", 0]]
+  ↳ app/views/usuarios/dashboard.html.erb:16
+  Rendered usuarios/dashboard.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 76ms (Views: 65.7ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/" for 172.28.0.1 at 2019-12-08 17:50:20 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#homepage as HTML
+  Rendering public/homepage.html.erb within layouts/application
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:8
+  [1m[36mUsuario Load (1.0ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:11
+  Rendered public/homepage.html.erb within layouts/application (4.8ms)
+Completed 200 OK in 92ms (Views: 81.9ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/login/a" for 172.28.0.1 at 2019-12-08 17:50:21 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_page as HTML
+  Parameters: {"msg"=>"a"}
+  Rendering public/login_page.html.erb within layouts/application
+  Rendered public/login_page.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 83ms (Views: 74.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 172.28.0.1 at 2019-12-08 17:50:28 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by PublicController#login_user as HTML
+  Parameters: {"authenticity_token"=>"NKbqc7teHa4NIxqr9shQBf8WC++JOmMUnJAPaTdyhtZWugXri0I+jnUUkteMRlsK5dmbORek3F3QITnR/IA3ag==", "datos"=>{"nombre"=>"McDonalds", "password"=>"[FILTERED]"}, "tipo"=>"1"}
+  [1m[36mRestaurante Load (1.5ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."nombre" = $1 AND "restaurantes"."password" = $2[0m  [["nombre", "McDonalds"], ["password", "12345"]]
+  ↳ app/controllers/public_controller.rb:70
+Redirected to http://0.0.0.0:3000/restaurantdashboard/53
+Completed 302 Found in 5ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/restaurantdashboard/53" for 172.28.0.1 at 2019-12-08 17:50:28 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#dashboard as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (1.1ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1[0m  [["id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:4
+  [1m[36mPlato Load (0.5ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:38
+  [1m[36mContienePlato Load (0.8ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mOrden Load (0.3ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mOrden Load (0.3ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mComentarioPlato Load (1.0ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  [1m[36mCACHE ContienePlato Load (0.0ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE ComentarioPlato Load (0.0ms)[0m  [1m[34mSELECT "comentario_platos".* FROM "comentario_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:47
+  Rendering restaurantes/dashboard.html.erb within layouts/application
+  [1m[36mComentarioRestaurante Load (1.2ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/restaurantes/dashboard.html.erb:19
+  Rendered restaurantes/dashboard.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 113ms (Views: 85.3ms | ActiveRecord: 5.2ms)
+
+
+Started GET "/restaurantdashboard/53" for 172.28.0.1 at 2019-12-08 17:52:50 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by RestaurantesController#dashboard as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mRestaurante Load (1.1ms)[0m  [1m[34mSELECT "restaurantes".* FROM "restaurantes" WHERE "restaurantes"."id" = $1[0m  [["id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:4
+  [1m[36mPlato Load (0.6ms)[0m  [1m[34mSELECT "platos".* FROM "platos" WHERE "platos"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/controllers/restaurantes_controller.rb:38
+  [1m[36mContienePlato Load (1.0ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mOrden Load (0.2ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mOrden Load (0.4ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE ContienePlato Load (0.0ms)[0m  [1m[34mSELECT "contiene_platos".* FROM "contiene_platos"[0m
+  ↳ app/controllers/restaurantes_controller.rb:40
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  [1m[36mCACHE Orden Load (0.0ms)[0m  [1m[34mSELECT "ordens".* FROM "ordens" WHERE "ordens"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/restaurantes_controller.rb:43
+  Rendering restaurantes/dashboard.html.erb within layouts/application
+  [1m[36mComentarioRestaurante Load (0.5ms)[0m  [1m[34mSELECT "comentario_restaurantes".* FROM "comentario_restaurantes" WHERE "comentario_restaurantes"."restaurante_id" = $1[0m  [["restaurante_id", 53]]
+  ↳ app/views/restaurantes/dashboard.html.erb:19
+  [1m[36mUsuario Load (0.7ms)[0m  [1m[34mSELECT  "usuarios".* FROM "usuarios" WHERE "usuarios"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  ↳ app/controllers/usuarios_controller.rb:81
+  Rendered restaurantes/dashboard.html.erb within layouts/application (41.2ms)
+Completed 200 OK in 247ms (Views: 120.3ms | ActiveRecord: 49.8ms)
+
+
+Started GET "/" for 172.28.0.1 at 2019-12-08 21:50:08 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  
+PG::ConnectionBad (FATAL:  the database system is starting up
+):
+  
+pg (1.1.4) lib/pg.rb:56:in `initialize'
+pg (1.1.4) lib/pg.rb:56:in `new'
+pg (1.1.4) lib/pg.rb:56:in `connect'
+activerecord (5.2.4) lib/active_record/connection_adapters/postgresql_adapter.rb:692:in `connect'
+activerecord (5.2.4) lib/active_record/connection_adapters/postgresql_adapter.rb:223:in `initialize'
+activerecord (5.2.4) lib/active_record/connection_adapters/postgresql_adapter.rb:48:in `new'
+activerecord (5.2.4) lib/active_record/connection_adapters/postgresql_adapter.rb:48:in `postgresql_connection'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:830:in `new_connection'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:874:in `checkout_new_connection'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:853:in `try_to_checkout_new_connection'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:814:in `acquire_connection'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:538:in `checkout'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:382:in `connection'
+activerecord (5.2.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:1033:in `retrieve_connection'
+activerecord (5.2.4) lib/active_record/connection_handling.rb:118:in `retrieve_connection'
+activerecord (5.2.4) lib/active_record/connection_handling.rb:90:in `connection'
+activerecord (5.2.4) lib/active_record/migration.rb:554:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:22:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.7) lib/rack/method_override.rb:22:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+railties (5.2.4) lib/rails/engine.rb:524:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for 172.28.0.1 at 2019-12-08 21:50:14 +0000
+Cannot render console from 172.28.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.4/lib/active_record/log_subscriber.rb:98
+Processing by PublicController#homepage as HTML
+  Rendering public/homepage.html.erb within layouts/application
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:8
+  [1m[36mUsuario Load (0.9ms)[0m  [1m[34mSELECT "usuarios".* FROM "usuarios"[0m
+  ↳ app/views/public/homepage.html.erb:11
+  Rendered public/homepage.html.erb within layouts/application (38.8ms)
+Completed 200 OK in 462ms (Views: 414.7ms | ActiveRecord: 17.2ms)
+
+
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE DATABASE "uber_eets_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE DATABASE "uber_eets_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9

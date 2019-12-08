@@ -14,18 +14,15 @@
       </ul>
     </p>
 
-    <p> Comentarios de Platos:
-      <ul>
-        <% @comentarios_platos.each do |comment|%>
-        <li> <%= comment.contenido %></li>
-        <% end %>
-      </ul>
-    </p>
-
     <p> Comentarios de Restaurante:
       <ul>
         <% @comentarios_rest.each do |comment|%>
-        <li> <%= comment.contenido %></li>
+          <li>
+            <p>Valoracion: <%=comment.puntaje%>/5</p>
+            <p>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></p>
+            <p>Comentario: <%=comment.contenido%></p>
+            <p>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></p>
+          </li>
         <% end %>
       </ul>
     </p>
