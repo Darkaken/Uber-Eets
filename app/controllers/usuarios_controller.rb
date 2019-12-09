@@ -84,8 +84,8 @@ class UsuariosController < ApplicationController
   def ordenes
     id = params[:data]
     @id = id
-    @ordenes_pasadas = Orden.where(usuario_id: id, estado: 1)
-    @ordenes_pendientes = Orden.where(usuario_id: id, estado: 0)
+    @ordenes_pasadas = Orden.where(usuario_id: id, estado: true)
+    @ordenes_pendientes = Orden.where(usuario_id: id, estado: false)
   end
 
   def self.find_rest_by_order_id(orden_id)
@@ -135,7 +135,6 @@ class UsuariosController < ApplicationController
     @contiene_platos.each do |cont_plato|
       @platos.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
     end
-    print @platos
   end
 
   def confirmacion_pedido

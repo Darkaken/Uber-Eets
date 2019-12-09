@@ -9,7 +9,14 @@
     <p> Ordenes:
       <ul>
         <% @ordenes.each do |orden|%>
-        <li> <%= orden.id %></li>
+          <li>
+            <a href=<%="/restaurantdashboard/#{@restaurante.id}/#{orden.id}"%>>Orden <%= orden.id %> </a>
+            <% if orden.estado == false%>
+              <p>(orden pendiente)</p>
+            <% else %>
+              <p>(orden aceptada)</p>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </p>

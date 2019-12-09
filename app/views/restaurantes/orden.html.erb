@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Uber Eats: Detalle Orden</title>
+  </head>
+  <body>
+    <h3>Orden <%=@orden.id%>:</h3>
+
+    <div class="detalle">
+      <p>Pedido: </p>
+      <ul>
+        <% @platos.each do |plato, cant| %>
+          <% if cant != "0" %>
+            <li><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%></li>
+          <% end %>
+        <% end %>
+        <li>Total: <%=@orden.precio%> CLP</li>
+      </ul>
+
+      <p>Detalles de envio:</p>
+      <ul>
+        <li>Medio de pago: <%=UsuariosController.get_medio_de_pago(@orden.medio_pago.to_i)%></li>
+        <li>Direccion de entrega: <%=@orden.direccion_entrega%></li>
+
+        <% if @orden.notas != "" %>
+          <li>Notas: <%=@orden.notas%></li>
+        <% else %>
+          <li>Notas: N/A</li>
+        <% end %>
+      </ul>
+    </div>
+    <% if @orden.estado == false %>
+      <form action=<%="/restaurantdashboard/#{@restaurante.id}/#{@orden.id}"%> method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="submit" name="respuesta" value="Aceptar orden">
+        <input type="submit" name="respuesta" value="Rechazar orden">
+      </form>
+    <% end %>
+
+    <a href=<%="/restaurantdashboard/#{@restaurante.id}"%>> Volver a dashboard </a>
+  </body>
+</html>

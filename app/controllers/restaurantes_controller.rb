@@ -8,7 +8,34 @@ class RestaurantesController < ApplicationController
       render "solicitud_rechazada.html.erb"
     else
       cargar_datos()
-      puts 'login successful'
+    end
+  end
+
+  def orden
+    @restaurante = Restaurante.find(params[:id])
+    @orden = Orden.find(params[:id_orden])
+
+    @contiene_platos = ContienePlato.where(orden_id: @orden.id)
+    @platos = []
+    @contiene_platos.each do |cont_plato|
+      if cont_plato.cantidad != 0 and cont_plato.cantidad != "0"
+        print 'heey'
+        print cont_plato.cantidad
+        print 'heey x2'
+        @platos.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
+      end
+    end
+
+    if params[:respuesta].nil? == false
+      respuesta = params[:respuesta]
+
+      if respuesta == "Aceptar orden"
+        @orden.estado = true
+        @orden.save
+      else
+        @orden.delete()
+      end
+      redirect_to "/restaurantdashboard/#{@restaurante.id}"
     end
   end
 
@@ -19,7 +46,6 @@ class RestaurantesController < ApplicationController
 
       update_data = params_update_perfil.dup
       update_data.each do |key, value|
-        print key, value
         if value == '' or value == ' '
           update_data.delete(key)
         end
@@ -39,10 +65,10 @@ class RestaurantesController < ApplicationController
 
       ContienePlato.all.each do |contiene_plato|
         if contiene_plato.plato_id == plato.id
-
           @ordenes += Orden.where(id: contiene_plato.orden_id)
         end
       end
+    @ordenes = @ordenes.uniq
     end
     @comentarios_rest = ComentarioRestaurante.where(restaurante_id: @restaurante.id)
   end

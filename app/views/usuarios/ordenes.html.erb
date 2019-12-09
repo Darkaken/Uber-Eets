@@ -14,8 +14,8 @@
             <% @ordenes_pasadas.each do |orden| %>
               <% rest = UsuariosController.find_rest_by_order_id(orden.id) %>
               <li>
-                <%="Restaurante: #{rest.nombre}, Total: #{orden.precio}"%>
-                <a href=<%="/userdashboard/#{id}/ordenes/#{orden.id}"%>>Detalle</a>
+                <%="Restaurante: #{rest.nombre}, Total: #{orden.precio} CLP"%>
+                <a href=<%="/userdashboard/#{@id}/ordenes/#{orden.id}"%>>Detalle</a>
               </li>
             <% end %>
           <% end %>

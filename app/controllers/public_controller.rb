@@ -14,8 +14,13 @@ class PublicController < ApplicationController
   end
 
   def stats #INCOMPLETO
-      Restaurant.where(estado: 0).each do |rest|
-      end
+    @count_rest = 0
+    @pedidos_por_rest = {}
+    @ingresos_por_restaurante = {}
+
+    Restaurante.where(estado: 0).each do |rest|
+      @count_rest += 1
+    end
   end
 
   def admin

@@ -52,6 +52,11 @@ Rails.application.routes.draw do
   get "/info_plato/:id_rest/:id" => "restaurantes#detalles_plato"
   post "/eliminar_plato/:id_rest/:id_plato" => "restaurantes#eliminar_plato"
 
+  # Ordenes
+
+  get "/restaurantdashboard/:id/:id_orden" => "restaurantes#orden"
+  post "/restaurantdashboard/:id/:id_orden" => "restaurantes#orden"
+
   # Perfil
   get "/restaurantprofile/:id" => "restaurantes#perfil"
   post "/restaurantprofile/:id" => "restaurantes#perfil"
