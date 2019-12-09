@@ -11,6 +11,21 @@ class RestaurantesController < ApplicationController
     end
   end
 
+  def cambiar_img_rest
+    @restaurante = Restaurante.find(params[:id])
+    image = params.require(:restaurante).permit(:avatar)
+    @restaurante.update(image)
+    redirect_to "/restaurantprofile/#{@restaurante.id}"
+  end
+
+  def cambiar_img_plato
+    @plato = Plato.find(params[:id])
+    image = params.require(:plato).permit(:picture)
+    @plato.update(image)
+    @restaurante = Restaurante.find(params[:id_rest])
+    redirect_to "/info_plato/#{@restaurante.id}/#{@plato.id}"
+  end
+
   def orden
     @restaurante = Restaurante.find(params[:id])
     @orden = Orden.find(params[:id_orden])
@@ -74,14 +89,15 @@ class RestaurantesController < ApplicationController
   end
 
   def crear_plato
+    @plato = Plato.new()
     @msg = ''
     @restaurante = Restaurante.find(params[:id])
     if params[:datos].nil? == true # GET Method (if no data)
     else                           # POST Method
       @msg = "Plato creado!"
-      plato = Plato.new(params_crear_plato)
-      plato.restaurante_id = @restaurante.id.dup
-      plato.save
+      @plato.update(params_crear_plato)
+      @plato.restaurante_id = @restaurante.id.dup
+      @plato.save
     end
   end
 
@@ -96,10 +112,11 @@ class RestaurantesController < ApplicationController
   def detalles_plato
     @id_rest = params[:id_rest]
     @plato = Plato.find(params[:id])
+    @restaurante = Restaurante.find(@id_rest)
   end
 
   def params_crear_plato
-    params.require(:datos).permit(:nombre, :precio, :descripcion, :porciones, :image)
+    params.require(:datos).permit(:nombre, :precio, :descripcion, :porciones)
   end
 
   def params_update_perfil

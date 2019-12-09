@@ -10,6 +10,16 @@
       <h4><%= "Cambios Guardados!" %></h4>
     <% end %>
 
+    <% if @restaurante.avatar.attached? == true %>
+      <%= image_tag(@restaurante.avatar, size: "200x200") %>
+    <% end %>
+
+    <%= form_for @restaurante, url: "/restaurantprofile/#{@restaurante.id}/cambiar_img" do |form| %>
+      <p>Cambiar Imagen:</p>
+      <%= form.file_field :avatar %> <br>
+      <%= form.submit "Guardar Imagen" %>
+    <% end %>
+
     <p>Nombre: <%= @restaurante.nombre %></p>
     <p>Correo: <%= @restaurante.correo %></p>
     <p>Direccion: <%= @restaurante.direccion %></p>
@@ -36,10 +46,6 @@
       <p>
         <label>Cambiar contraseña:</label>
         <input type="password" name="datos[password]">
-      </p>
-      <p>
-        <label>Cambiar imagen:</label>
-        <input type="text" name="datos[image]">
       </p>
       <input type="submit" value="Guardar Cambios">
     </form>

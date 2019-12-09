@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get "/userdashboard/:data/perfil" => "usuarios#perfil"
   post "/userdashboard/:data/perfil" => "usuarios#perfil"
 
+  post "/userdashboard/:data/perfil/cambiar_img" => "usuarios#cambiar_img"
+
   # Ordenes
   get "/userdashboard/:data/ordenes" => "usuarios#ordenes"
   get "/userdashboard/:data/ordenes/:orden_id" => "usuarios#detalle_orden"
@@ -41,7 +43,6 @@ Rails.application.routes.draw do
 
   get "/userdashboard/:data/:id/view" => "usuarios#view_restaurant"
   post "/userdashboard/:data/:id/view" => "usuarios#view_restaurant"
-  #post "/userdashboard/:data/:id/view/:delid" => "usuarios#view_restaurant"
 
   # RESTAURANT ROUTES
   get "/restaurantdashboard/:id" => "restaurantes#dashboard"
@@ -49,8 +50,11 @@ Rails.application.routes.draw do
   # Platos
   get "/crear_plato/:id" => "restaurantes#crear_plato"
   post "/crear_plato/:id" => "restaurantes#crear_plato"
-  get "/info_plato/:id_rest/:id" => "restaurantes#detalles_plato"
   post "/eliminar_plato/:id_rest/:id_plato" => "restaurantes#eliminar_plato"
+
+  # Detalles Plato
+  get "/info_plato/:id_rest/:id" => "restaurantes#detalles_plato"
+  patch "/info_plato/:id_rest/:id/cambiar_img" => "restaurantes#cambiar_img_plato"
 
   # Ordenes
 
@@ -60,5 +64,6 @@ Rails.application.routes.draw do
   # Perfil
   get "/restaurantprofile/:id" => "restaurantes#perfil"
   post "/restaurantprofile/:id" => "restaurantes#perfil"
+  patch "/restaurantprofile/:id/cambiar_img" => "restaurantes#cambiar_img_rest"
 
 end

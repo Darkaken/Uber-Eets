@@ -10,6 +10,14 @@ class UsuariosController < ApplicationController
     end
   end
 
+  def cambiar_img
+    @usuario = Usuario.find(params[:data])
+    image = params.require(:usuario).permit(:image)
+    @usuario.update(image)
+
+    redirect_to "/userdashboard/#{@usuario.id}/perfil"
+  end
+
   def perfil
     @success = false
     @usuario = Usuario.find(params[:data])

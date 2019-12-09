@@ -6,12 +6,21 @@
   <body>
     <h2><%= "Pagina de #{@restaurante.nombre}" %></h2>
 
+    <% if @restaurante.avatar.attached? == true %>
+      <%= image_tag(@restaurante.avatar, size: "200x200") %>
+    <% end %>
+
     <h4> Platos disponibles: </h4>
 
     <% if @platos.nil? == false %>
       <% @platos.each do |plato| %>
         <ul>
           <li>Nombre: <%= plato.nombre %> </li>
+
+          <% if plato.picture.attached? == true %>
+            <%= image_tag(plato.picture, size: "80x80") %>
+          <% end %>
+
           <p> Porciones: <%= plato.porciones %> </p>
           <p> Descripcion: <%= plato.descripcion %> </p>
           <p> Precio: <%= plato.precio %> CLP</p>

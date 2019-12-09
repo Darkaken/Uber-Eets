@@ -10,6 +10,10 @@
       <h4><%= "Cambios Guardados!" %></h4>
     <% end %>
 
+    <% if @usuario.image.attached? == true %>
+      <%= image_tag(@usuario.image, size: "200x200") %>
+    <% end %>
+
     <p>Nombre: <%= @usuario.nombre %></p>
     <p>Correo: <%= @usuario.correo %></p>
     <p>Direccion: <%= @usuario.direccion %></p>
@@ -21,6 +25,11 @@
       <p>Restaurate Favorito: N/A </p>
     <% end %>
 
+    <%= form_for @usuario, url: "/userdashboard/#{@usuario.id}/perfil/cambiar_img" do |form| %>
+      <p>Cambiar Imagen:</p>
+      <%= form.file_field :image %> <br>
+      <%= form.submit "Guardar Imagen" %>
+    <% end %>
 
     <form action=<%="/userdashboard/#{@usuario.id}/perfil"%> method="post">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -52,10 +61,7 @@
           <option value=<%=rest.id%>> <%=rest.nombre%> </option>
         <% end %>
       </select>
-      <p>
-        <label>Cambiar imagen:</label>
-        <input type="text" name="datos[image]">
-      </p>
+      <br>
       <input type="submit" value="Guardar Cambios">
     </form>
 

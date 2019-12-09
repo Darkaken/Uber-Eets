@@ -5,11 +5,21 @@
   </head>
   <body>
     <h2>Detalle Plato: <%= @plato.nombre %></h2>
+
+    <% if @plato.picture.attached? == true %>
+      <%= image_tag(@plato.picture, size: "200x200") %>
+    <% end %>
+
+    <%= form_for @plato, url: "/info_plato/#{@restaurante.id}/#{@plato.id}/cambiar_img" do |form| %>
+      <p>Cambiar Imagen:</p>
+      <%= form.file_field :picture %> <br>
+      <%= form.submit "Guardar Imagen" %>
+    <% end %>
+
     <ul>
       <li>Precio: <%= @plato.precio %> CLP</li>
       <li>Descripcion: <%= @plato.descripcion %></li>
       <li>Porciones: <%= @plato.porciones %></li>
-      <!-- Falta Imagen -->
     </ul>
       <a href=<%="/restaurantdashboard/#{@id_rest}"%>> Volver a Dashboard</a>
   </body>
