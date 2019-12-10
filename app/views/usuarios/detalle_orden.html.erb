@@ -54,10 +54,15 @@ function pedido_realizado() {
 
         <h3>Pedido: </h3>
         <ul>
+
+          <% if @invalid.nil? == false and @invalid == true %>
+            <h4>Orden contiene plato(s) eliminados</h4>
+          <% end %>
+
           <% @platos.each do |plato, cant| %>
-            <% if cant != 0 %>
-              <h4><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%></h4>
-            <% end %>
+              <% if cant != 0 %>
+                <h4><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%></h4>
+              <% end %>
           <% end %>
           <h4>Total: <%=@orden.precio%> CLP</h4>
         </ul>

@@ -79,14 +79,24 @@ h1, h2, h3, h4, h5, h6 {
     <body>
       <h1>Lista de Ordenes: </h1>
 
+      <% total = 0%>
+      <% if @ordenes_pasadas.nil? == false%>
+        <% @ordenes_pasadas.each do |orden| %>
+          <% total += orden.precio %>
+        <% end %>
+      <% end %>
+
+      <h4>Gasto Total: <%=total%></h4>
+
       <h4>Ordenes pasadas:</h4>
         <div class="ordenes_pasadas">
             <% if @ordenes_pasadas.nil? == false %>
               <% @ordenes_pasadas.each do |orden| %>
+
                 <% rest = UsuariosController.find_rest_by_order_id(orden.id) %>
                   <h4 style="display: inline"><%="Restaurante: #{rest.nombre}, Total: #{orden.precio} CLP    "%></h4>
                   <h4 style="display: inline"><a href=<%="/userdashboard/#{@id}/ordenes/#{orden.id}"%>>Detalle</a></h4> <br>
-              <% end %>
+                <% end %>
             <% end %>
         </div>
 

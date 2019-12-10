@@ -29,8 +29,15 @@ class PublicController < ApplicationController
   def admin
 
     @count_rest = 0
-    @pedidos_por_rest = {}
-    @ingresos_por_restaurante = {}
+    @ventas_totales = 0
+    @ordenes_totales = 0
+
+    Orden.all.each do |orden|
+      if orden.estado == true
+        @ventas_totales += orden.precio
+        @ordenes_totales += 1
+      end
+    end
 
     Restaurante.where(estado: 0).each do |rest|
       @count_rest += 1
@@ -66,6 +73,46 @@ class PublicController < ApplicationController
 
   def info_rest
     @restaurante = Restaurante.where(id: params[:id])[0]
+    @cantidad_pedidos = 0
+    @ventas_totales = 0
+
+    @platos = Plato.where(restaurante_id: @restaurante.id)
+
+    @ordenes = []
+    @comentarios_platos = []
+    @platos.each do |plato|
+
+      ContienePlato.all.each do |contiene_plato|
+        if contiene_plato.plato_id == plato.id
+          @ordenes += Orden.where(id: contiene_plato.orden_id)
+        end
+      end
+    end
+    @ordenes = @ordenes.uniq
+
+    @ordenes.each do |orden|
+      if orden.estado == true
+        @ventas_totales += orden.precio
+        @cantidad_pedidos += 1
+      end
+    end
+
+    @comentarios_rest = ComentarioRestaurante.where(restaurante_id: @restaurante.id)
+
+    @puntaje = "N/A"
+    if @comentarios_rest.nil? == false
+      count = 0
+      puntaje_acumulado = 0
+
+      @comentarios_rest.each do |comentario|
+        count += 1
+        puntaje_acumulado += comentario.puntaje
+      end
+
+      if count != 0
+        @puntaje = (puntaje_acumulado/count).round(1)
+      end
+    end
   end
 
   def login_user

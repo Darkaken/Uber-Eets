@@ -41,7 +41,12 @@ h1, h2, h3, h4, h5, h6 {
         <p>Correo: <%= @restaurante.correo %></p>
         <p>Direccion: <%= @restaurante.direccion %></p>
         <p>Telefono: <%= @restaurante.telefono %></p>
-        <p>Valoracion: <%= @restaurante.valoracion %></p>
+        <p>Valoracion: <%= @puntaje%> </p>
+
+        <% if @ventas_totales != 0 and @cantidad_pedidos != 0 %>
+          <p> Ventas Totales: <%=@ventas_totales%> </p>
+          <p> Cantidad pedidos: <%=@cantidad_pedidos%> </p>
+        <% end %>
 
       </div>
     </div>

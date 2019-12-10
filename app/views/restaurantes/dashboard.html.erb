@@ -85,10 +85,19 @@ h1, h2, h3, h4, h5, h6 {
 <div class="w3-content" style="max-width:1500px;">
   <div class="w3-row w3-padding-64" id="ordenes">
     <h1 style="text-align:center">Ordenes</h1>
-    <br>
+
+    <% total = 0%>
+    <% if @ordenes.nil? == false%>
+      <% @ordenes.each do |orden| %>
+        <% total += orden.precio %>
+      <% end %>
+    <% end %>
+
+    <h4 style="text-align:center"> Ventas Totales: <%=total%> CLP</h4>
     <br>
     <br>
         <% @ordenes.each do |orden|%>
+
             <h3 style="display: inline">Orden  <%= orden.id %></h3>
             <% if orden.estado == false%>
               <h4 style="display: inline">    (orden pendiente)</h4>
@@ -99,12 +108,22 @@ h1, h2, h3, h4, h5, h6 {
             <div class="detalle">
               <h4>Pedido: </h4>
               <ul>
-                <% RestaurantesController.get_order(@restaurante.id, orden.id).each do |plato, cant| %>
-                  <% if cant != "0" %>
-                    <li> <h6><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%> </h6></li>
+                <% eliminado = false%>
+
+                <% begin %>
+
+                  <% RestaurantesController.get_order(@restaurante.id, orden.id).each do |plato, cant| %>
+                    <% if cant != "0" %>
+                      <li> <h6><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%> </h6></li>
+                    <% end %>
                   <% end %>
+                  <li> <h6>Total: <%=orden.precio%> CLP </h6> </li>
+
+                <% rescue Exception => e%>
+                  <h6>Nota: Contiene un plato eliminado</h6>
+                  <% eliminado = true %>
                 <% end %>
-                <li> <h6>Total: <%=orden.precio%> CLP </h6> </li>
+
               </ul>
 
               <h4>Detalles de envio:</h4>
@@ -119,13 +138,14 @@ h1, h2, h3, h4, h5, h6 {
                 <% end %>
               </ul>
             </div>
-            <% if orden.estado == false %>
+            <% if orden.estado == false and eliminado == false %>
               <form action=<%="/restaurantdashboard/#{@restaurante.id}/#{orden.id}"%> method="post">
                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
                 <input class="w3-button w3-light-grey w3-section" type="submit" name="respuesta" value="Aceptar orden">
                 <input class="w3-button w3-light-grey w3-section" type="submit" name="respuesta" value="Rechazar orden">
               </form>
             <% end %>
+
             <hr>
         <% end %>
   </div>
@@ -136,8 +156,6 @@ h1, h2, h3, h4, h5, h6 {
 <div class="w3-content" style="max-width:1500px;">
   <!-- Restaurantes Section -->
     <div class="w3-row w3-padding-64" id="perfil">
-
-    <hr>
     <body>
 
       <div style="text-align:center;">

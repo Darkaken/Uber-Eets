@@ -154,7 +154,11 @@ class UsuariosController < ApplicationController
     @restaurante = Restaurante.find(Plato.find(@contiene_platos[0].plato_id).restaurante_id)
     @platos = []
     @contiene_platos.each do |cont_plato|
-      @platos.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
+      begin
+        @platos.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
+      rescue Exception => e
+        @invalid = true
+      end
     end
   end
 
