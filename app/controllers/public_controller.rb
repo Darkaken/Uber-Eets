@@ -79,7 +79,7 @@ class PublicController < ApplicationController
           if usuario[0].tipo == 1
             redirect_to "/users/admin"
           else
-            redirect_to :controller => "usuarios", :action => "dashboard", :data => usuario[0].id
+            redirect_to :controller => "usuarios", :action => "dashboard", :data => usuario[0].id, :msg => "a"
           end
         end
       else

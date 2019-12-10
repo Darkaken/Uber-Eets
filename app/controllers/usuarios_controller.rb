@@ -8,6 +8,18 @@ class UsuariosController < ApplicationController
     if params[:msg].nil? == false
       @msg = params[:msg]
     end
+
+    rest_fav_table = RestFav.where(usuario_id: @usuario.id)[0]
+
+    if rest_fav_table.nil? == false
+      @restaurante_fav = Restaurante.find(rest_fav_table.restaurante_id)
+    end
+
+    id = params[:data]
+    @id = id
+    @ordenes_pasadas = Orden.where(usuario_id: id, estado: true)
+    @ordenes_pendientes = Orden.where(usuario_id: id, estado: false)
+
   end
 
   def cambiar_img
@@ -15,7 +27,7 @@ class UsuariosController < ApplicationController
     image = params.require(:usuario).permit(:image)
     @usuario.update(image)
 
-    redirect_to "/userdashboard/#{@usuario.id}/perfil"
+    redirect_to "/userdashboard/#{@usuario.id}/a#perfil"
   end
 
   def perfil
@@ -46,12 +58,13 @@ class UsuariosController < ApplicationController
           RestFav.delete(rest_fav_table.id)
         end
         RestFav.create(usuario_id: @usuario.id, restaurante_id: fav_id)
-        redirect_back(fallback_location: "/userdashboard/#{@usuario.id}/perfil")
 
       end
       @usuario.update(update_data)
       @success = true
     end
+
+    redirect_to "/userdashboard/#{@usuario.id}#perfil"
   end
 
   def view_restaurant
@@ -129,7 +142,7 @@ class UsuariosController < ApplicationController
         end
       end
 
-      redirect_to action: 'dashboard', msg: "Pedido Ingresado!"
+      redirect_to "/userdashboard/#{@usuario.id}/pr"
     end
   end
 

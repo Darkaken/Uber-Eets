@@ -1,53 +1,228 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title>Uber Eets: Dashboard</title>
-  </head>
-  <body>
-    Dashboard de <%= @restaurante.nombre %> <br>
-    <a href=<%="/restaurantprofile/#{@restaurante.id}"%>> Ir a perfil </a>
-    <p> Ordenes:
-      <ul>
-        <% @ordenes.each do |orden|%>
-          <li>
-            <a href=<%="/restaurantdashboard/#{@restaurante.id}/#{orden.id}"%>>Orden <%= orden.id %> </a>
-            <% if orden.estado == false%>
-              <p>(orden pendiente)</p>
-            <% else %>
-              <p>(orden aceptada)</p>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </p>
 
-    <p> Comentarios de Restaurante:
+<!DOCTYPE html>
+<html>
+<title>Uber Eets</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif; background-color: LightGray}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+</style>
+
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="/" class="w3-bar-item w3-button">Uber Eets</a>
+    <div class="w3-right w3-hide-small">
+      <a href="#ordenes" class="w3-bar-item w3-button">Ordenes</a>
+      <a href="#perfil" class="w3-bar-item w3-button">Perfil</a>
+      <a href="#nuevo_plato" class="w3-bar-item w3-button">Crear Plato</a>
+            <a href="#comentarios" class="w3-bar-item w3-button">Comentarios</a>
+      <a href="/" class="w3-bar-item w3-button">Salir</a>
+    </div>
+  </div>
+</div>
+
+<header class="w3-display-container w3-content w3-wide" style="max-width:2200px;min-width:500px" id="home">
+  <%= image_tag(@restaurante.avatar, size: "2200x1000") %>
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+    <h1 class="w3-xxlarge" style="color: white"><%=@restaurante.nombre%></h1>
+  </div>
+</header>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="platos">
+
+    <% count = 1 %>
+    <% if @platos.nil? == false %>
+      <% @platos.each do |plato| %>
+        <% if count%2 == 1 %>
+          <div class="w3-col l6 w3-padding-large"> <!-- Div de Izquierda -->
+            <% if plato.picture.attached? == true %>
+              <%= image_tag(plato.picture, size: "500x300") %>
+            <% else %>
+              <img class="w3-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Blank_square.svg/480px-Blank_square.svg.png" alt="Uber Eets" width="500px" height="300px">
+            <% end %>
+              <div class="w3-row w3-padding-64" id="menu">
+                <div class="w3-col l6 w3-padding-large">
+                  <a href=<%="/info_plato/#{@restaurante.id}/#{plato.id}"%>><h3> <%= plato.nombre %> </h3> </a>
+                  <hr>
+                  <h5> Porciones: <%= plato.porciones %> </h5>
+                  <h5> Descripcion: <%= plato.descripcion %> </h5>
+                  <h5> Precio: <%= plato.precio %> CLP</h5>
+                </div>
+              </div>
+          </div>
+        <% else %>
+          <div class="w3-col m6 w3-padding-large"> <!-- Div de Derecha -->
+            <% if plato.picture.attached? == true %>
+              <%= image_tag(plato.picture, size: "500x300") %>
+            <% else %>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Blank_square.svg/480px-Blank_square.svg.png" alt="Uber Eets" width="500px" height="300px">
+            <% end %>
+              <div class="w3-row w3-padding-64" id="menu">
+                <div class="w3-col m6 w3-padding-large">
+                  <a href=<%="/info_plato/#{@restaurante.id}/#{plato.id}"%>><h3> <%= plato.nombre %> </h3> </a>
+                  <hr>
+                  <h5> Porciones: <%= plato.porciones %> </h5>
+                  <h5> Descripcion: <%= plato.descripcion %> </h5>
+                  <h5> Precio: <%= plato.precio %> CLP</h5>
+                </div>
+              </div>
+          </div>
+        <% end %>
+        <% count += 1%>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="ordenes">
+    <h1 style="text-align:center">Ordenes</h1>
+    <br>
+    <br>
+    <br>
+        <% @ordenes.each do |orden|%>
+            <h3 style="display: inline">Orden  <%= orden.id %></h3>
+            <% if orden.estado == false%>
+              <h4 style="display: inline">    (orden pendiente)</h4>
+            <% else %>
+              <h4 style="display: inline">    (orden aceptada)</h4>
+            <% end %>
+
+            <div class="detalle">
+              <h4>Pedido: </h4>
+              <ul>
+                <% RestaurantesController.get_order(@restaurante.id, orden.id).each do |plato, cant| %>
+                  <% if cant != "0" %>
+                    <li> <h6><%="#{plato.nombre}, cantidad: #{cant}, precio c/u: #{plato.precio} CLP"%> </h6></li>
+                  <% end %>
+                <% end %>
+                <li> <h6>Total: <%=orden.precio%> CLP </h6> </li>
+              </ul>
+
+              <h4>Detalles de envio:</h4>
+              <ul>
+                <li> <h6>Medio de pago: <%=UsuariosController.get_medio_de_pago(orden.medio_pago.to_i)%> </h6> </li>
+                <li> <h6>Direccion de entrega: <%=orden.direccion_entrega%> </h6> </li>
+
+                <% if orden.notas != "" %>
+                  <li> <h6>Notas: <%=orden.notas%> </h6> </li>
+                <% else %>
+                  <li> <h6>Notas: N/A </h6> </li>
+                <% end %>
+              </ul>
+            </div>
+            <% if orden.estado == false %>
+              <form action=<%="/restaurantdashboard/#{@restaurante.id}/#{orden.id}"%> method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input class="w3-button w3-light-grey w3-section" type="submit" name="respuesta" value="Aceptar orden">
+                <input class="w3-button w3-light-grey w3-section" type="submit" name="respuesta" value="Rechazar orden">
+              </form>
+            <% end %>
+            <hr>
+        <% end %>
+  </div>
+</div>
+
+
+
+<div class="w3-content" style="max-width:1500px;">
+  <!-- Restaurantes Section -->
+    <div class="w3-row w3-padding-64" id="perfil">
+
+    <hr>
+    <body>
+
+      <div style="text-align:center;">
+        <h1> Perfil de <%= @restaurante.nombre %></h1>
+
+        <% if @success %>
+          <h4><%= "Cambios Guardados!" %></h4>
+        <% end %>
+
+        <h4>Nombre: <%= @restaurante.nombre %></h4>
+        <h4>Correo: <%= @restaurante.correo %></h4>
+        <h4>Direccion: <%= @restaurante.direccion %></h4>
+        <h4>Telefono: <%= @restaurante.telefono %></h4>
+
+        <%= form_for @restaurante, url: "/restaurantprofile/#{@restaurante.id}/cambiar_img" do |form| %>
+          <h4>Cambiar Imagen:</h4>
+          <%= form.file_field :avatar %> <br>
+          <%= form.submit "Guardar Imagen" %>
+          <h6>Tamaño recomendado: 2200x1000 (o similar) </h6>
+        <% end %>
+      </div>
+
+      <hr>
+
+      <div class="w3-container w3-padding-64" id="cambiar">
+        <h1>Editar Perfil</h1><br>
+        <form action=<%="/restaurantprofile/#{@restaurante.id}"%> method="post">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Nombre" name="datos[nombre]"></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Correo" name="datos[correo]"></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Direccion" name="datos[direccion]"></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Telefono" name="datos[telefono]"></p>
+          <p><input class="w3-input w3-padding-16" type="password" placeholder="Contraseña" name="datos[password]"></p>
+          <p><button class="w3-button w3-light-grey w3-section" type="submit">Guardar Cambios</button></p>
+        </form>
+      </div>
+    </body>
+  </div>
+</div>
+
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <!-- Restaurantes Section -->
+  <div class="w3-row w3-padding-64" id="perfil">
+    <div class="w3-container w3-padding-64" id="nuevo_plato">
+      <body>
+        <h4><%= @msg %></h4>
+        <h1>Crear plato nuevo</h1> <br> <br>
+        <form action=<%="/crear_plato/#{@restaurante.id}"%> method="post">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input class="w3-input w3-padding-16" placeholder="Nombre" type="text" name="datos[nombre]"> <br>
+            <input class="w3-input w3-padding-16" placeholder="Precio (CLP)" type="number" name="datos[precio]"> <br>
+            <input class="w3-input w3-padding-16" placeholder="Descripcion" type="text" name="datos[descripcion]"> <br>
+            <input class="w3-input w3-padding-16" placeholder="Porciones" type="number" name="datos[porciones]"> <br>
+          <input class="w3-button w3-light-grey w3-section" type='submit' value="Crear Plato"> <br>
+        </form>
+      </body>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="comentarios">
+    <p> <h2 style="text-align: center">Comentarios de Restaurante:</h2>
+      <h4 style="text-align: center"><%="Valoracion promedio: #{@puntaje}"%></h4>
+        <br>
+        <br>
+        <br>
       <ul>
         <% @comentarios_rest.each do |comment|%>
           <li>
-            <p>Valoracion: <%=comment.puntaje%>/5</p>
-            <p>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></p>
-            <p>Comentario: <%=comment.contenido%></p>
-            <p>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></p>
+            <h4>Valoracion: <%=comment.puntaje%>/5</h4>
+            <h4>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></h4>
+            <h4>Comentario: <%=comment.contenido%></h4>
+            <h4>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></h4>
           </li>
+          <hr>
         <% end %>
       </ul>
-    </p>
+  </div>
+</div>
 
-    <p> Platos:
-      <ul>
-        <% @platos.each do |plato|%>
-          <% @id = plato.id %>
-          <li> <a href=<%="/info_plato/#{@restaurante.id}/#{@id}"%>> <%= plato.nombre %> </a> </li>
-          <form action=<%="/eliminar_plato/#{@restaurante.id}/#{plato.id}"%> method="post">
-            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-            <input type="submit" value="Eliminar Plato">
-          </form>
-        <% end %>
-      </ul>
-    </p>
-
-    <a href=<%="/crear_plato/#{@restaurante.id}"%>> Crear Plato </a> <br>
-    <a href="/"> Salir </a>
-  </body>
-</html>
+<footer class="w3-center w3-light-grey w3-padding-32">
+  <p>Uber Eets</p>
+</footer>

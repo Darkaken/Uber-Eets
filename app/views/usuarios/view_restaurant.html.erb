@@ -1,75 +1,152 @@
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title>Uber Eets: Ver Restaurante</title>
-  </head>
-  <body>
+<html>
+<title>Uber Eets</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif; background-color: LightGray}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+</style>
 
-    <h3>Pagina de <%=@restaurante.nombre%></h3>
-    <h5>Puntaje: <%=@puntaje%>/5</h5>
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="/" class="w3-bar-item w3-button">Uber Eets</a>
+    <div class="w3-right w3-hide-small">
+      <a href="#pedidos" class="w3-bar-item w3-button">Hacer pedido</a>
+      <a href="#comentar" class="w3-bar-item w3-button">Comentarios</a>
+      <a href=<%="/userdashboard/#{@usuario.id}/a"%> class="w3-bar-item w3-button">Volver</a>
+      <a href="/" class="w3-bar-item w3-button">Salir</a>
+    </div>
+  </div>
+</div>
 
-    <% if @restaurante.avatar.attached? == true %>
-      <%= image_tag(@restaurante.avatar, size: "200x200") %>
+<header class="w3-display-container w3-content w3-wide" style="max-width:2200px;min-width:500px" id="home">
+  <%= image_tag(@restaurante.avatar, size: "2200x1000") %>
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+    <h1 class="w3-xxlarge" style="color: white"><%=@restaurante.nombre%></h1>
+  </div>
+</header>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="platos">
+
+    <% count = 1 %>
+    <% if @platos.nil? == false %>
+      <% @platos.each do |plato| %>
+        <% if count%2 == 1 %>
+          <div class="w3-col l6 w3-padding-large"> <!-- Div de Izquierda -->
+            <% if plato.picture.attached? == true %>
+              <%= image_tag(plato.picture, size: "500x300") %>
+              <div class="w3-row w3-padding-64" id="menu">
+                <div class="w3-col l6 w3-padding-large">
+                  <h3> <%= plato.nombre %> </h3>
+                  <hr>
+                  <h5> Porciones: <%= plato.porciones %> </h5>
+                  <h5> Descripcion: <%= plato.descripcion %> </h5>
+                  <h5> Precio: <%= plato.precio %> CLP</h5>
+                </div>
+              </div>
+
+            <% end %>
+          </div>
+        <% else %>
+          <div class="w3-col m6 w3-padding-large"> <!-- Div de Derecha -->
+            <% if plato.picture.attached? == true %>
+              <%= image_tag(plato.picture, size: "500x300") %>
+              <div class="w3-row w3-padding-64" id="menu">
+                <div class="w3-col m6 w3-padding-large">
+                  <h3> <%= plato.nombre %> </h3>
+                  <hr>
+                  <h5> Porciones: <%= plato.porciones %> </h5>
+                  <h5> Descripcion: <%= plato.descripcion %> </h5>
+                  <h5> Precio: <%= plato.precio %> CLP</h5>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <% count += 1%>
+      <% end %>
     <% end %>
+  </div>
+</div>
 
-    <h4>Comentarios: </h4>
-    <% if @comentarios_rest.nil? == false %>
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" style="text-align:center" id="pedidos">
+
+    <h2>Hacer pedido:</h2>
+
+    <form  action=<%="/userdashboard/#{@usuario.id}/#{@restaurante.id}"%> method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <% @platos.each do |plato| %>
+            <h4 style="display: inline;"><%=plato.nombre%></h4>
+            <input type="number" name="datos[<%=plato.id%>]" value=0> <br>
+        <% end %>
+        <input class="w3-button w3-light-grey w3-section" type="submit" value="Confirmar Pedido">
+    </form>
+
+  </div>
+</div>
+
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="platos">
+     <h2 style="text-align: center">Comentarios de Restaurante:</h2>
+      <h4 style="text-align: center"><%="Valoracion promedio: #{@puntaje}"%></h4>
+        <br>
+        <br>
+        <br>
       <ul>
         <% @comentarios_rest.each do |comment|%>
           <li>
-            <p>Valoracion: <%=comment.puntaje%>/5</p>
-            <p>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></p>
-            <p>Comentario: <%=comment.contenido%></p>
-            <p>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></p>
+            <h4>Valoracion: <%=comment.puntaje%>/5</h4>
+            <h4>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></h4>
+            <h4>Comentario: <%=comment.contenido%></h4>
+            <h4>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></h4>
           </li>
 
           <% if comment.usuario_id == @usuario.id %>
             <form class="eliminar_mensaje" action=<%="/userdashboard/#{@usuario.id}/#{@restaurante.id}/view"%> method="post">
               <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
               <input type="hidden" name="del_id" value="<%=comment.id%>">
-              <input type="submit" value="Eliminar Mensaje">
+              <input class="w3-button w3-light-grey w3-section" type="submit" value="Eliminar Mensaje">
             </form>
           <% end %>
 
+          <hr>
         <% end %>
       </ul>
-    <% else %>
-      <p>N/A</p>
-    <% end %>
+  </div>
+</div>
 
-    <h4>Hacer comentario: </h4>
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-container w3-padding-64" id="comentar">
+    <h2>Hacer comentario: </h2>
     <form class="comentario_form" action=<%="/userdashboard/#{@usuario.id}/#{@restaurante.id}/view"%> method="post">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
       <input type="hidden" name="comentario[usuario_id]" value="<%=@usuario.id%>">
       <input type="hidden" name="comentario[restaurante_id]" value="<%=@restaurante.id%>">
       <input type="hidden" name="comentario[fecha]" value="<%=Time.now.to_s[0, 19]%>">
       <p>
-        Valoracion: <input type="number" name="comentario[puntaje]" value="5">/5
+        <input class="w3-input w3-padding-16" type="number" placeholder="Valoracion (1, 2, 3, 4, 5)" required name="comentario[puntaje]" value="">
       </p>
-      <p>Comentario: <input type="text" name="comentario[contenido]" value=""></p>
-      <input type="submit" value="Hacer Comentario">
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Comentario" required name="comentario[contenido]" value=""></p>
+      <input class="w3-button w3-light-grey w3-section" type="submit" value="Hacer Comentario">
     </form>
+  </div>
+</div>
 
-    <h4>Platos: </h4>
 
-    <div class="platos">
-      <ul>
-        <% @platos.each do |plato| %>
-          <li>
-            <p><%=plato.nombre%></p>
-
-            <% if plato.picture.attached? == true %>
-              <%= image_tag(plato.picture, size: "80x80") %>
-            <% end %>
-
-            <p>Precio: <%=plato.precio%> CLP</p>
-            <p>Porciones: <%=plato.porciones%></p>
-            <p>Descripcion: <%=plato.descripcion%></p>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-
-    <a href=<%="/userdashboard/#{@usuario.id}"%>>Volver a dashboard</a>
-  </body>
-</html>
+<footer class="w3-center w3-light-grey w3-padding-32">
+  <p>Uber Eets</p>
+</footer>

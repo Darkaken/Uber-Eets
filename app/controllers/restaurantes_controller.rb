@@ -9,13 +9,31 @@ class RestaurantesController < ApplicationController
     else
       cargar_datos()
     end
+
+    @platos = Plato.where(restaurante_id: @restaurante.id)
+    @comentarios_rest = ComentarioRestaurante.where(restaurante_id: @restaurante.id)
+
+    @puntaje = "N/A"
+    if @comentarios_rest.nil? == false
+      count = 0
+      puntaje_acumulado = 0
+
+      @comentarios_rest.each do |comentario|
+        count += 1
+        puntaje_acumulado += comentario.puntaje
+      end
+
+      if count != 0
+        @puntaje = (puntaje_acumulado/count).round(1)
+      end
+    end
   end
 
   def cambiar_img_rest
     @restaurante = Restaurante.find(params[:id])
     image = params.require(:restaurante).permit(:avatar)
     @restaurante.update(image)
-    redirect_to "/restaurantprofile/#{@restaurante.id}"
+    redirect_to "/restaurantdashboard/#{@restaurante.id}"
   end
 
   def cambiar_img_plato
@@ -31,13 +49,11 @@ class RestaurantesController < ApplicationController
     @orden = Orden.find(params[:id_orden])
 
     @contiene_platos = ContienePlato.where(orden_id: @orden.id)
-    @platos = []
+    @platoss = []
     @contiene_platos.each do |cont_plato|
       if cont_plato.cantidad != 0 and cont_plato.cantidad != "0"
-        print 'heey'
         print cont_plato.cantidad
-        print 'heey x2'
-        @platos.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
+        @platoss.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
       end
     end
 
@@ -52,6 +68,20 @@ class RestaurantesController < ApplicationController
       end
       redirect_to "/restaurantdashboard/#{@restaurante.id}"
     end
+  end
+
+  def self.get_order(rest_id, order_id)
+    @restaurante = Restaurante.find(rest_id)
+    @orden = Orden.find(order_id)
+
+    @contiene_platos = ContienePlato.where(orden_id: @orden.id)
+    @platoss = []
+    @contiene_platos.each do |cont_plato|
+      if cont_plato.cantidad != 0 and cont_plato.cantidad != "0"
+        @platoss.push([Plato.find(cont_plato.plato_id), cont_plato.cantidad])
+      end
+    end
+    return @platoss
   end
 
   def perfil
@@ -69,6 +99,9 @@ class RestaurantesController < ApplicationController
       @restaurante.update(update_data)
       @success = true
     end
+
+    redirect_to "/restaurantdashboard/#{@restaurante.id}#perfil"
+
   end
 
   def cargar_datos
@@ -99,14 +132,23 @@ class RestaurantesController < ApplicationController
       @plato.restaurante_id = @restaurante.id.dup
       @plato.save
     end
+
+    redirect_to "/restaurantdashboard/#{@restaurante.id}"
+
   end
 
   def eliminar_plato
-    puts params
-    id = params[:id_plato]
-    puts id
-    Plato.delete(id)
+    id_plato = params[:id_plato]
+    Plato.delete(params[:id_plato])
     redirect_to "/restaurantdashboard/#{params[:id_rest]}"
+
+    ContienePlato.all.each do |cont_plato|
+      if cont_plato.plato_id == id_plato
+        ord = Orden.find(orden_id)
+        ord.delete()
+      end
+    end
+
   end
 
   def detalles_plato

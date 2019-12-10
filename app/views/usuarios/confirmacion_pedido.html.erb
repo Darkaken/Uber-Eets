@@ -1,22 +1,65 @@
 
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title>Uber Eets: Confirmar Pedido</title>
-  </head>
-  <body>
+<html>
+<title>Uber Eets</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif; background-color: LightGray}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+</style>
 
-    <h3>Pedido:</h3>
+<script>
+function pedido_realizado() {
+  alert("Pedido realizado");
+}
+</script>
 
-    <ul>
+<% if @msg.nil? == false %>
+  <% if @msg == 'pr' %>
+    <p><script>datos_invalidos();</script></p>
+  <% end %>
+<% end %>
+
+
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="/" class="w3-bar-item w3-button">Uber Eets</a>
+    <div class="w3-right w3-hide-small">
+      <a href=<%="/userdashboard/#{@usuario.id}/a"%> class="w3-bar-item w3-button">Volver</a>
+      <a href="/" class="w3-bar-item w3-button">Salir</a>
+    </div>
+  </div>
+</div>
+
+<header class="w3-display-container w3-content w3-wide" style="max-width:2200px;min-width:500px" id="home">
+  <%= image_tag(@restaurante.avatar, size: "2200x1000") %>
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+    <h1 class="w3-xxlarge" style="color: white"><%=@restaurante.nombre%></h1>
+  </div>
+</header>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="platos">
+
+    <h1>Confirmacion de pedido:</h1>
       <% @platos.each do |plato| %>
-        <% if @datos[plato.id].class != nil %>
-          <li> <%="Plato: #{plato.nombre},   Cantidad: #{@datos[plato.id.to_s]}, Precio: #{plato.precio * @datos[plato.id.to_s].to_i}" %></li>
+        <h4><% if @datos[plato.id].class != nil %> <%="Plato: #{plato.nombre},   Cantidad: #{@datos[plato.id.to_s]}, Precio: #{plato.precio * @datos[plato.id.to_s].to_i} CLP" %></h4>
         <% end %>
       <% end %>
-    </ul>
 
-    <p>Total: <%=@total%> CLP</p>
+    <h4>Total: <%=@total%> CLP</h4>
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
 
     <h3>Informacion de compra: </h3>
 
@@ -28,9 +71,9 @@
           <input type="hidden" name="datos[<%=key%>]" value="<%=value%>">
         <% end %>
 
-        <li>Direccion: <input type="text" name="carrito[direccion_entrega]" value="<%=@usuario.direccion%>"></li>
+        <h4>Dirección: <input class="w3-input w3-padding-16" type="text" placeholder="Dirección" required name="carrito[direccion_entrega]" value="<%=@usuario.direccion%>"></h4>
 
-        <label>Medio de pago: </label>
+        <h4 style="display: inline">Medio de pago: </h4>
         <select name="carrito[medio_pago]">
           <option value="2">Crédito</option>
           <option value="3">Débito</option>
@@ -38,14 +81,18 @@
           <option value="4">EetsPay</option>
         </select>
 
-        <li>Notas: <input type="text" name="carrito[notas]" value=""></li>
+        <h4><input class="w3-input w3-padding-16" type="text" placeholder="Notas" name="carrito[notas]" value=""></h4>
         <input type="hidden" name="carrito[precio]" value=<%=@total%>>
-        <input type="submit" value="Hacer Pedido">
+        <input class="w3-button w3-light-grey w3-section" type="submit" value="Hacer Pedido">
 
       </form>
     </ul>
+  </div>
+</div>
 
-    <a href=<%="/userdashboard/#{@usuario.id}"%>>Cancelar pedido y volver</a>
 
-  </body>
+<footer class="w3-center w3-light-grey w3-padding-32">
+  <p>Uber Eets</p>
+</footer>
+
 </html>

@@ -1,30 +1,175 @@
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title>Uber Eets</title>
-  </head>
-  <body>
-    <h2><%= "Hola #{@usuario.nombre}!"%></h2>
+<html>
+<title>Uber Eets</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif; background-color: LightGray}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+</style>
 
-    <h3><%=@msg%></h3>
 
-    <a href=<%="/userdashboard/#{@usuario.id}/ordenes"%>>Mis Ordenes</a> <br>
-    <a href=<%="/userdashboard/#{@usuario.id}/perfil"%>>Perfil</a> <br> <br>
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="/" class="w3-bar-item w3-button">Uber Eets</a>
+    <!-- Right-sided navbar links. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#restaurantes" class="w3-bar-item w3-button">Restaurantes</a>
+      <a href="#ordenes" class="w3-bar-item w3-button">Mis Ordenes</a>
+      <a href="#perfil" class="w3-bar-item w3-button">Perfil</a>
+      <a href="/" class="w3-bar-item w3-button">Salir</a>
+    </div>
+  </div>
+</div>
 
-    <label>Restaurantes: </label>
-    <ul>
-      <% @restaurantes.each do |rest| %>
-        <li>
-          <label><%= rest.nombre %></label>
-          <form action=<%="/userdashboard/#{@usuario.id}/#{rest.id}"%> method="get">
-            <input type="submit" value="Hacer Pedido" />
-          </form>
-          <form action=<%="/userdashboard/#{@usuario.id}/#{rest.id}/view"%> method="get">
-            <input type="submit" value="Ver pagina" />
-          </form>
-        </li>
+<header class="w3-display-container w3-content w3-wide" style="max-width:2200px;min-width:500px" id="home">
+  <img class="w3-image" src="https://pixelz.cc/wp-content/uploads/2018/07/hamburgers-uhd-4k-wallpaper.jpeg" alt="Uber Eets" width="2200" height="500">
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+    <h1 class="w3-xxlarge" style="color: white">Bienvenido <%=@usuario.nombre%>!</h1>
+  </div>
+</header>
+
+<div class="w3-content" style="max-width:1500px;">
+
+  <!-- Restaurantes Section -->
+  <div class="w3-row w3-padding-64" id="restaurantes">
+
+    <h1>Restaurantes: </h1>
+
+    <% count = 1 %>
+    <% @restaurantes.each do |rest| %>
+      <% if count%2 == 1 %>
+        <div class="w3-col l6 w3-padding-large"> <!-- Div de Izquierda -->
+          <% if rest.avatar.attached? == true %>
+            <%= image_tag(rest.avatar, size: "500x300") %>
+            <div class="w3-row w3-padding-64" id="menu">
+              <div class="w3-col l6 w3-padding-large">
+                <a href=<%= "/userdashboard/#{@usuario.id}/#{rest.id}/view" %> style="text-decoration:none;"><h4>Hacer pedido en <%=rest.nombre%></h4></a>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+      <% else %>
+        <div class="w3-col m6 w3-padding-large"> <!-- Div de Derecha -->
+          <% if rest.avatar.attached? == true %>
+            <%= image_tag(rest.avatar, size: "500x300") %>
+            <div class="w3-row w3-padding-64" id="menu">
+              <div class="w3-col m6 w3-padding-large">
+                <a href=<%= "/userdashboard/#{@usuario.id}/#{rest.id}/view" %> style="text-decoration:none;"><h4>Hacer pedido en <%=rest.nombre%></h4></a>
+              </div>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    </ul>
-    <a href="/">Salir</a>
-  </body>
+      <% count += 1%>
+    <% end %>
+  </div>
+</div>
+
+  <div class="w3-row w3-padding-64" style="text-align:center"id="ordenes">
+
+    <hr>
+
+    <body>
+      <h1>Lista de Ordenes: </h1>
+
+      <h4>Ordenes pasadas:</h4>
+        <div class="ordenes_pasadas">
+            <% if @ordenes_pasadas.nil? == false %>
+              <% @ordenes_pasadas.each do |orden| %>
+                <% rest = UsuariosController.find_rest_by_order_id(orden.id) %>
+                  <h4 style="display: inline"><%="Restaurante: #{rest.nombre}, Total: #{orden.precio} CLP    "%></h4>
+                  <h4 style="display: inline"><a href=<%="/userdashboard/#{@id}/ordenes/#{orden.id}"%>>Detalle</a></h4> <br>
+              <% end %>
+            <% end %>
+        </div>
+
+      <h4>Ordenes pendientes:</h4>
+        <div class="ordenes_pendientes">
+            <% if @ordenes_pendientes.nil? == false %>
+              <% @ordenes_pendientes.each do |orden| %>
+                <% rest = UsuariosController.find_rest_by_order_id(orden.id) %>
+                  <h4 style="display: inline"><%="Restaurante: #{rest.nombre}, Total: #{orden.precio} CLP    "%></h4>
+                  <h4 style="display: inline"><a href=<%="/userdashboard/#{@id}/ordenes/#{orden.id}"%>>Detalle</a></h4> <br>
+              <% end %>
+            <% end %>
+        </div>
+
+    </body>
+  </div>
+
+
+
+<div class="w3-content" style="max-width:1500px;">
+  <!-- Restaurantes Section -->
+    <div class="w3-row w3-padding-64" id="perfil">
+
+    <hr>
+    <body>
+
+      <div style="text-align:center;">
+        <h1> Perfil de <%= @usuario.nombre %></h1>
+
+        <% if @success %>
+          <h4><%= "Cambios Guardados!" %></h4>
+        <% end %>
+
+        <% if @usuario.image.attached? == true %>
+          <%= image_tag(@usuario.image, size: "200x200") %>
+        <% end %>
+
+        <h4>Nombre: <%= @usuario.nombre %></h4>
+        <h4>Correo: <%= @usuario.correo %></h4>
+        <h4>Direccion: <%= @usuario.direccion %></h4>
+        <h4>Telefono: <%= @usuario.telefono %></h4>
+
+        <% if @restaurante_fav.nil? == false%>
+          <h4>Restaurante Favorito: <%= @restaurante_fav.nombre %></h4>
+        <% else %>
+          <h4>Restaurate Favorito: N/A </h4>
+        <% end %>
+
+        <%= form_for @usuario, url: "/userdashboard/#{@usuario.id}/perfil/cambiar_img" do |form| %>
+          <h4>Cambiar Imagen:</h4>
+          <%= form.file_field :image %> <br>
+          <%= form.submit "Guardar Imagen" %>
+        <% end %>
+      </div>
+
+      <hr>
+
+      <div class="w3-container w3-padding-64" id="cambiar">
+        <h1>Editar Perfil</h1><br>
+        <form action=<%="/userdashboard/#{@usuario.id}/perfil"%> method="post">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Nombre" name="datos[nombre]"></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Correo" name="datos[correo]"></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Direccion" name="datos[direccion]"></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Telefono" name="datos[telefono]"></p>
+          <p><input class="w3-input w3-padding-16" type="password" placeholder="Contraseña" name="datos[password]"></p>
+          <h6>Restaurante Favorito:</h6>
+          <select name="fav">
+            <option value="nil">No cambiar</option>
+            <% @restaurantes.each do |rest|%>
+              <option value=<%=rest.id%>> <%=rest.nombre%> </option>
+            <% end %>
+          </select>
+          <p><button class="w3-button w3-light-grey w3-section" type="submit">Guardar Cambios</button></p>
+        </form>
+      </div>
+
+    </body>
+  </div>
+</div>
+
+<footer class="w3-center w3-light-grey w3-padding-32">
+  <p>Uber Eets</p>
+</footer>
+
 </html>

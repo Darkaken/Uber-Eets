@@ -24,13 +24,13 @@ Rails.application.routes.draw do
   post "/signup" => "public#signup"
 
   # USER ROUTES
-  get "/userdashboard/:data" => "usuarios#dashboard"
+  get "/userdashboard/:data/:msg" => "usuarios#dashboard"
 
   # Perfil
   get "/userdashboard/:data/perfil" => "usuarios#perfil"
   post "/userdashboard/:data/perfil" => "usuarios#perfil"
 
-  post "/userdashboard/:data/perfil/cambiar_img" => "usuarios#cambiar_img"
+  patch "/userdashboard/:data/perfil/cambiar_img" => "usuarios#cambiar_img"
 
   # Ordenes
   get "/userdashboard/:data/ordenes" => "usuarios#ordenes"
