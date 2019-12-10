@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   #Homepage and guest dashboard
   root to: "public#homepage"
+
+  get "/:msg" => "public#homepage"
+
   get "/dashboard" => "public#dashboard"
   get "/dashboard/:id" => "public#view_restaurant"
 
@@ -11,15 +14,14 @@ Rails.application.routes.draw do
   post "/login" => "public#login_user"
 
   # Admin stuff
-  get "/admin" => "public#admin"
+  get "/users/admin" => "public#admin"
   get "/info_rest/:id" => "public#info_rest"
-  post "/admin" => "public#admin"
+  post "/users/admin" => "public#admin"
   get "/admin/stats" => "public#stats"
 
   #Get signup and enter register data
   get "/signup" => "public#signup"
   post "/signup" => "public#signup"
-  get "/exitosignup" => "public#exitosignup"
 
   # USER ROUTES
   get "/userdashboard/:data" => "usuarios#dashboard"

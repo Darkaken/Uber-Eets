@@ -1,32 +1,99 @@
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title>Uber Eets: View Restaurant</title>
-  </head>
-  <body>
-    <h2><%= "Pagina de #{@restaurante.nombre}" %></h2>
+<html>
+<title>Uber Eets</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif; background-color: LightGray}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+</style>
 
-    <% if @restaurante.avatar.attached? == true %>
-      <%= image_tag(@restaurante.avatar, size: "200x200") %>
-    <% end %>
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="/" class="w3-bar-item w3-button">Uber Eets</a>
+  </div>
+</div>
 
-    <h4> Platos disponibles: </h4>
+<header class="w3-display-container w3-content w3-wide" style="max-width:2200px;min-width:500px" id="home">
+  <%= image_tag(@restaurante.avatar, size: "2200x1000") %>
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+    <h1 class="w3-xxlarge" style="color: white"><%=@restaurante.nombre%></h1>
+  </div>
+</header>
 
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="platos">
+
+    <% count = 1 %>
     <% if @platos.nil? == false %>
       <% @platos.each do |plato| %>
-        <ul>
-          <li>Nombre: <%= plato.nombre %> </li>
+        <% if count%2 == 1 %>
+          <div class="w3-col l6 w3-padding-large"> <!-- Div de Izquierda -->
+            <% if plato.picture.attached? == true %>
+              <%= image_tag(plato.picture, size: "500x300") %>
+              <div class="w3-row w3-padding-64" id="menu">
+                <div class="w3-col l6 w3-padding-large">
+                  <h3> <%= plato.nombre %> </h3>
+                  <hr>
+                  <h5> Porciones: <%= plato.porciones %> </h5>
+                  <h5> Descripcion: <%= plato.descripcion %> </h5>
+                  <h5> Precio: <%= plato.precio %> CLP</h5>
+                </div>
+              </div>
 
-          <% if plato.picture.attached? == true %>
-            <%= image_tag(plato.picture, size: "80x80") %>
-          <% end %>
-
-          <p> Porciones: <%= plato.porciones %> </p>
-          <p> Descripcion: <%= plato.descripcion %> </p>
-          <p> Precio: <%= plato.precio %> CLP</p>
-        </ul>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="w3-col m6 w3-padding-large"> <!-- Div de Derecha -->
+            <% if plato.picture.attached? == true %>
+              <%= image_tag(plato.picture, size: "500x300") %>
+              <div class="w3-row w3-padding-64" id="menu">
+                <div class="w3-col m6 w3-padding-large">
+                  <h3> <%= plato.nombre %> </h3>
+                  <hr>
+                  <h5> Porciones: <%= plato.porciones %> </h5>
+                  <h5> Descripcion: <%= plato.descripcion %> </h5>
+                  <h5> Precio: <%= plato.precio %> CLP</h5>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <% count += 1%>
       <% end %>
     <% end %>
-    <a href="/dashboard">Volver al dashboard</a>
-  </body>
-</html>
+  </div>
+</div>
+
+<hr>
+
+<div class="w3-content" style="max-width:1500px;">
+  <div class="w3-row w3-padding-64" id="platos">
+    <p> <h2 style="text-align: center">Comentarios de Restaurante:</h2>
+      <h4 style="text-align: center"><%="Valoracion promedio: #{@puntaje}"%></h4>
+        <br>
+        <br>
+        <br>
+      <ul>
+        <% @comentarios_rest.each do |comment|%>
+          <li>
+            <h4>Valoracion: <%=comment.puntaje%>/5</h4>
+            <h4>Usuario: <%=UsuariosController.get_user_from_id(comment.usuario_id).nombre%></h4>
+            <h4>Comentario: <%=comment.contenido%></h4>
+            <h4>Fecha: <%=comment.fecha.strftime("%d/%m/%Y")%></h4>
+          </li>
+          <hr>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<footer class="w3-center w3-light-grey w3-padding-32">
+  <p>Uber Eets</p>
+</footer>
